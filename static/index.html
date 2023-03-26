@@ -7,7 +7,7 @@
     <meta content='width=device-width; height=device-height; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <meta name="license" content="
-        Copyright 2013 Google, Abram Hindle
+        Copyright 2023 Google, Abram Hindle, Aidan Horemans
         
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
@@ -145,7 +145,7 @@ function prepEntity(entity) {
 function clearFrame() {
     with(context) {
 	moveTo(0,0);
-	fillStyle = "#000";
+	fillStyle = "#FFF";
 	fillRect(0,0,W,H);
     }
 }
@@ -379,9 +379,14 @@ function wsSetup() {
             //debug("WebSocket Recv:" + msg.data);
             //XXX: TODO What are you going to do here?
             json = JSON.parse(msg.data);
-            entity = Object.keys(json)[0];
-            data = json[entity]
-            newChanges[entity] = data;
+            entity = Object.keys(json)[0]; 
+            if (entity == "clearWorld" && json[entity] == 1){ // special case, clear world
+                world = {};
+                clearFrame();
+            } else {
+                data = json[entity];
+                newChanges[entity] = data;
+            }
             drawNextFrame();
 
         } catch (e) {
