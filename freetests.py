@@ -103,8 +103,8 @@ if __name__ == '__main__':
         ws2.daemon = False
         ws.name = "Reader/Writer"
         ws2.name = "Reader"
-        ws.connect()     
-        ws2.connect()     
+        ws.connect()
+        ws2.connect()
         ''' what we're doing here is that we're sending new entities and getting them
             back on the websocket '''
         greenlets = [

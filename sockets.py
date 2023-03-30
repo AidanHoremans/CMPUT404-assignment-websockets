@@ -26,6 +26,18 @@ app = Flask(__name__)
 sockets = Sockets(app)
 app.debug = True
 
+########
+#
+# Code for Client taken from:
+# Class: Client
+# Author: Abram Hindle
+# Date: March 6th 2014
+# Date Modified: March 30th 2023
+# File: https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py
+# Source: https://github.com/abramhindle/WebSocketsExamples
+#
+########
+
 class Client:
     def __init__(self):
         self.queue = queue.Queue()
@@ -86,6 +98,19 @@ def hello():
     '''Return something coherent here.. perhaps redirect to /static/index.html '''
     return flask.redirect("/static/index.html")
 
+
+########
+#
+# Code from read_ws modified from:
+# Function: read_ws
+# Author: Abram Hindle
+# Date: March 6th 2014
+# Date Modified: March 30th 2023
+# File: https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py
+# Source: https://github.com/abramhindle/WebSocketsExamples
+#
+########
+
 def read_ws(ws,client:Client):
     '''A greenlet function that reads from the websocket and updates the world'''
     try:
@@ -100,11 +125,22 @@ def read_ws(ws,client:Client):
     except:
         pass
 
+########
+#
+# Code from subscribe_socket modified from:
+# Function: subscribe_socket
+# Author: Abram Hindle
+# Date: March 6th 2014
+# Date Modified: March 30th 2023
+# File: https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py
+# Source: https://github.com/abramhindle/WebSocketsExamples
+#
+########
+
 @sockets.route('/subscribe')
 def subscribe_socket(ws):
     '''Fufill the websocket URL of /subscribe, every update notify the
        websocket and read updates from the websocket '''
-    # XXX: TODO IMPLEMENT ME
     client = Client()
     clients.append(client)
     g_event = gevent.spawn(read_ws, ws, client)
