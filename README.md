@@ -7,6 +7,10 @@ See requirements.org (plain-text) for a description of the project.
 
 Make a shared state Websockets drawing program
 
+References
+==========
+- Abram Hindle, https://github.com/abramhindle/WebSocketsExamples, March 6th 2014
+
 Prereqs
 =======
 Create a virtual environment and install the required dependencies.
